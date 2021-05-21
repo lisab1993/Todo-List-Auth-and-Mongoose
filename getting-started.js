@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-moongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -25,7 +25,7 @@ kittySchema.methods.speak = function () {
     console.log(greeting);
 }
 
-const Kitten = mongoose.model('Kitten', kittySchema);
+
 
 const fluffy = new Kitten({ name: 'fluffy' });
 fluffy.speak(); // "Meow name is fluffy"
