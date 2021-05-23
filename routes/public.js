@@ -1,10 +1,11 @@
-const User = require('../models/User')
+const User = require('../schemas')
 const express = require('express')
 const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
 router.post('/signup', (req, res) => {
+  console.log('Signup post successfuly reached - Lisa')
   User.findOne({ username: req.body.username }, async (err, userExists) => {
     if (err) return res.status(500).send(err)
     if (userExists) return res.status(400).send('username already exists')

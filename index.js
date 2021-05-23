@@ -12,10 +12,10 @@ app.use(morgan('dev'))
 app.use(express.json())
 
 //connects to the routes created under the "routes" directory
-const userRoutes = require('./routes/users')
+const userRoutes = require('./routes/public')
 app.use('/', userRoutes)
 
-const protectedRoutes = require('./routes/protected')
+const protectedRoutes = require('./routes/private')
 app.use('/', protectedRoutes)
 
 //creates an async function that will be used to connect to "localhost", and the name of our database.
