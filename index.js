@@ -36,6 +36,6 @@ const connectDatabase = async (hostname, databaseName) => {
   
   //the express app listens on port 8000, and asynchronously runs the connectDatabase function crreated above.
   app.listen(port, async () => {
-    await connectDatabase('localhost', 'auth-demo')
+    await connectDatabase('localhost', 'lisasdatabase1')
     console.log(`server is listening on port ${port}`)
   })
