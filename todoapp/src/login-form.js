@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function SignupForm () {
+export default function SignupForm (props) {
     const [usernameText, setUsernameText] = useState('')
     const [passwordText, setPasswordText] = useState('')
 
@@ -19,7 +19,9 @@ export default function SignupForm () {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: usernameText, password: passwordText })  
         }
-        fetch('/signup', options) 
+        fetch('/login', options)
+        .then(res => res.json())
+        .then(data => props.getToken(data))
     }
 
     //send up the token on login
@@ -28,7 +30,7 @@ export default function SignupForm () {
 
     return (
         <div>
-            <h1>Sign in here!</h1>
+            <h1>Login in here!</h1>
             <form onSubmit= {handleSubmit}>
                 {/* Username  */}
                 <label>
@@ -50,7 +52,7 @@ export default function SignupForm () {
                 <button type="submit">Submit</button>
             </form>
             <div>
-                Already have an account? Login here!
+                Need an account? Signup here!
             </div>
         </div>
     )

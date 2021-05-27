@@ -4,13 +4,12 @@ const { Schema } = mongoose
 
 //create Mongoose schemas for Todo items as well as Users
 
-//Child Schema
+
 const todoSchema = new Schema({
     title: String,
     complete: Boolean
 })
 
-//Parent Schema
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -22,11 +21,20 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     //Array of subdoccuments
-    children: [todoSchema],
+    // todos: [todoSchema],
     // Single nested subdocuments. Caveat: single nested subdocs only work
     // in mongoose >= 4.2.0
-    child: todoSchema
+    // child: todoSchema
 })
+
+todoSchema.statics.postTodo = async function (title, complete) {
+  const todo = new this()
+  todo.title = title
+  todo.complete = complete
+  await todo.save()
+  return todo
+}
+
 
 userSchema.statics.signup = async function (username, plainTextPassword) {
     const user = new this()
@@ -35,7 +43,7 @@ userSchema.statics.signup = async function (username, plainTextPassword) {
     await user.save()
     return user
   }
-  
+
   userSchema.methods.sanitize = function () {
     return {
       ...this._doc,
@@ -56,6 +64,7 @@ userSchema.statics.signup = async function (username, plainTextPassword) {
   }
   
   const User = mongoose.model('User', userSchema)
+  const Todo = mongoose.model('Todo', todoSchema)
   
-  module.exports = User
+  module.exports = User, Todo
 
